@@ -11,7 +11,7 @@ from .feishu_content import extract_feishu_text
 from .service import IMService
 from .types import IMIncomingMessage
 
-logger = logging.getLogger("xingclaw.im.feishu.longconn")
+logger = logging.getLogger("loopweaver.im.feishu.longconn")
 
 
 @dataclass
@@ -32,7 +32,7 @@ class _AsyncLoopRunner:
     def __init__(self) -> None:
         self._loop: asyncio.AbstractEventLoop | None = None
         self._ready = threading.Event()
-        self._thread = threading.Thread(target=self._run, name="xingclaw-im-async", daemon=True)
+        self._thread = threading.Thread(target=self._run, name="loopweaver-im-async", daemon=True)
         self._thread.start()
         self._ready.wait(timeout=5)
 
@@ -325,7 +325,7 @@ def _parse_card_action_object(data: Any) -> IMIncomingMessage | None:
             value = json.loads(value)
         except ValueError:
             return None
-    if not isinstance(value, dict) or value.get("xingclaw_action") != "tool_approval":
+    if not isinstance(value, dict) or value.get("loopweaver_action") != "tool_approval":
         return None
 
     decision = str(value.get("decision") or "").lower()

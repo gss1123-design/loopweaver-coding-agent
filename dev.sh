@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# XingClaw Linux/macOS 本地调试启动脚本
+# LoopWeaver Linux/macOS 本地调试启动脚本
 # 使用方式: ./dev.sh [--mode im|cli] [--transport webhook|longconn]
 #
 # 环境变量（在运行前设置，或创建 .env 文件）:
@@ -10,8 +10,8 @@
 #   OPENAI_API_KEY=your_openai_key               # 可选
 #
 # 模型配置:
-#   XINGCLAW_PROVIDER=anthropic                  # 默认 anthropic
-#   XINGCLAW_MODEL_ID=claude-sonnet-4-5          # 默认 claude-sonnet-4-5
+#   LOOPWEAVER_PROVIDER=anthropic                  # 默认 anthropic
+#   LOOPWEAVER_MODEL_ID=claude-sonnet-4-5          # 默认 claude-sonnet-4-5
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -33,8 +33,8 @@ PORT="${PORT:-8787}"
 WORKSPACE="${WORKSPACE:-.}"
 LOG_LEVEL="${LOG_LEVEL:-debug}"
 TOOL_APPROVAL="${TOOL_APPROVAL:-false}"
-PROVIDER="${XINGCLAW_PROVIDER:-anthropic}"
-MODEL_ID="${XINGCLAW_MODEL_ID:-claude-sonnet-4-5}"
+PROVIDER="${LOOPWEAVER_PROVIDER:-anthropic}"
+MODEL_ID="${LOOPWEAVER_MODEL_ID:-claude-sonnet-4-5}"
 
 # 解析命令行参数
 while [[ $# -gt 0 ]]; do
@@ -51,8 +51,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 # 确保已安装（开发模式）
-if ! pip show xingclaw &>/dev/null; then
-    echo "[dev] Installing xingclaw in editable mode ..."
+if ! pip show loopweaver &>/dev/null; then
+    echo "[dev] Installing loopweaver in editable mode ..."
     pip install -e ".[dev]"
 fi
 

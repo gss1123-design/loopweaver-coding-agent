@@ -199,7 +199,7 @@ def grade(workspace: Path,task: Task,image: str) -> dict:
     # The verifier is outside the model-visible directory and executes in a
     # constrained container: model-generated Python never executes on host.
     verifier = "import importlib.util\ns=importlib.util.spec_from_file_location('candidate','/workspace/app.py')\nm=importlib.util.module_from_spec(s)\ns.loader.exec_module(m)\n" + task.checks
-    container_name = f"xingclaw-eval-{uuid.uuid4().hex[:12]}"
+    container_name = f"loopweaver-eval-{uuid.uuid4().hex[:12]}"
     command = ["docker","run","--rm","--name",container_name,"--network","none","--read-only","--cap-drop","ALL",
         "--security-opt","no-new-privileges","--user","65534:65534","--memory","128m","--cpus","1",
         "--pids-limit","64","--mount",f"type=bind,src={workspace.resolve()},dst=/workspace,readonly",
@@ -401,7 +401,7 @@ def main():
     parser.add_argument("--allow-paid",action="store_true")
     parser.add_argument("--repetitions",type=int,default=1)
     parser.add_argument("--model",default="deepseek-flash")
-    parser.add_argument("--image",default="xingclaw-sandbox:local")
+    parser.add_argument("--image",default="loopweaver-sandbox:local")
     parser.add_argument("--artifacts",default="output/evals-live")
     parser.add_argument("--memory-policy",choices=["always","selective"],default="selective")
     parser.add_argument("--include-history",action="store_true")

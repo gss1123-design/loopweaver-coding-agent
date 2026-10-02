@@ -18,7 +18,7 @@ from .types import (
     IMWebhookResult,
 )
 
-logger = logging.getLogger("xingclaw.im.feishu")
+logger = logging.getLogger("loopweaver.im.feishu")
 
 
 @dataclass
@@ -87,7 +87,7 @@ class FeishuAdapter:
                 return IMWebhookResult(ack={"code": 19021, "msg": "invalid token"}, messages=[])
 
         # Interactive-card callbacks use a different payload shape from
-        # im.message.receive_v1.  Convert a XingClaw approval button click to
+        # im.message.receive_v1.  Convert a LoopWeaver approval button click to
         # the same internal command used by the text fallback.
         card_action = self._parse_card_action(payload)
         if card_action is not None:
@@ -192,7 +192,7 @@ class FeishuAdapter:
         token = self._get_tenant_access_token()
         url = f"{self.config.api_base}/im/v1/messages/{message_id}"
         headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json; charset=utf-8"}
-        card = self._build_card_content("XingClaw", text)
+        card = self._build_card_content("LoopWeaver", text)
         payload = {
             "content": card,
         }
@@ -282,7 +282,7 @@ class FeishuAdapter:
         if not isinstance(action, dict):
             return None
         value = action.get("value")
-        if not isinstance(value, dict) or value.get("xingclaw_action") != "tool_approval":
+        if not isinstance(value, dict) or value.get("loopweaver_action") != "tool_approval":
             return None
 
         decision = str(value.get("decision") or "").lower()

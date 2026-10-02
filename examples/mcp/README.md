@@ -1,7 +1,7 @@
-# XingClaw 本地 MCP 示例
+# LoopWeaver 本地 MCP 示例
 
 这个目录提供一个只依赖 Python 标准库的 stdio MCP server，方便学习和验证
-XingClaw 的 MCP 链路。
+LoopWeaver 的 MCP 链路。
 
 server 提供三个只读工具：
 
@@ -11,7 +11,7 @@ server 提供三个只读工具：
 
 ## 启用配置
 
-在项目根目录创建 `.xingclaw/settings.json`，写入以下配置：
+在项目根目录创建 `.loopweaver/settings.json`，写入以下配置：
 
 ```json
 {
@@ -19,7 +19,7 @@ server 提供三个只读工具：
     {
       "name": "local-project",
       "command": "python",
-      "args": ["examples/mcp/xingclaw_project_server.py"],
+      "args": ["examples/mcp/loopweaver_project_server.py"],
       "tools": [
         {
           "name": "project_summary",
@@ -43,14 +43,14 @@ python -m coding_agent --mode interactive --workspace .
 ```
 
 MCP server 是按需启动的：创建会话时只创建代理工具，模型第一次调用其中一个
-工具时，XingClaw 才启动这个 Python 子进程并完成 `initialize`、
+工具时，LoopWeaver 才启动这个 Python 子进程并完成 `initialize`、
 `notifications/initialized`、`tools/call`。
 
 也可以单独验证 server 本身（输入一行 JSON-RPC）：
 
 ```powershell
 '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' |
-  python examples/mcp/xingclaw_project_server.py
+  python examples/mcp/loopweaver_project_server.py
 ```
 
 不要让普通日志写到 stdout；MCP 客户端把 stdout 当作 JSON-RPC 通道，调试信息

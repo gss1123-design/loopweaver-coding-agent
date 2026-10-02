@@ -24,7 +24,7 @@ class DurableInbox:
     _TERMINAL_STATUSES = {"completed", "dropped"}
 
     def __init__(self, workspace_dir: str | Path) -> None:
-        self.root = Path(workspace_dir) / ".xingclaw" / "im"
+        self.root = Path(workspace_dir) / ".loopweaver" / "im"
         self.path = self.root / "inbox.jsonl"
         self._lock = threading.RLock()
         self._state: dict[str, dict[str, Any]] = {}

@@ -26,8 +26,8 @@ def docker_command(workspace: Path, image: str, name: str, *, read_only: bool, r
             "--memory", "512m", "--cpus", "1", "--pids-limit", "128", "--read-only",
             "--user", "65534:65534",
             "--tmpfs", "/tmp:rw,nosuid,noexec,size=64m", "--mount", mount,
-            "--mount", f"type=bind,source={source},target=/opt/xingclaw,readonly",
-            "--workdir", "/workspace", "--env", "PYTHONPATH=/opt/xingclaw",
+            "--mount", f"type=bind,source={source},target=/opt/loopweaver,readonly",
+            "--workdir", "/workspace", "--env", "PYTHONPATH=/opt/loopweaver",
             "--env", "GIT_OPTIONAL_LOCKS=0", "--env", "GIT_CONFIG_COUNT=1",
             "--env", "GIT_CONFIG_KEY_0=safe.directory", "--env", "GIT_CONFIG_VALUE_0=/workspace",
             image, "python", "-m", "coding_agent.sandbox_worker"]
@@ -43,8 +43,8 @@ def sandbox_tools(tools: list[AgentTool], workspace: Path, image: str, policy: d
                 value = args.get(key)
                 if isinstance(value, str) and Path(value).is_absolute():
                     args[key] = str(Path(value).resolve().relative_to(workspace.resolve())).replace("\\", "/")
-            name = "xingclaw-" + uuid.uuid4().hex
-            temporary = tempfile.TemporaryDirectory(prefix="xingclaw-sandbox-")
+            name = "loopweaver-" + uuid.uuid4().hex
+            temporary = tempfile.TemporaryDirectory(prefix="loopweaver-sandbox-")
             try:
                 snapshot = WorkspaceSnapshot(workspace, Path(temporary.name) / "workspace")
                 runtime = WorkspaceSnapshot(Path(__file__).resolve().parents[1],Path(temporary.name)/"runtime")
@@ -127,6 +127,6 @@ def sandbox_tools(tools: list[AgentTool], workspace: Path, image: str, policy: d
                         await asyncio.gather(creation,return_exceptions=True)
                     temporary.cleanup()
         wrapped = replace(tool, execute=execute)
-        setattr(wrapped, "_xingclaw_builtin_tool", True)
+        setattr(wrapped, "_loopweaver_builtin_tool", True)
         return wrapped
     return [wrap(tool) for tool in tools]

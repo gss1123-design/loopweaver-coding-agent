@@ -1,5 +1,5 @@
 """
-XingClaw ai 包公共导出。
+LoopWeaver ai 包公共导出。
 """
 
 from .api_registry import ApiProvider, clear_api_providers, get_api_provider, register_api_provider

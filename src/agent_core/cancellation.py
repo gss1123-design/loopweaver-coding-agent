@@ -6,7 +6,7 @@ from __future__ import annotations
 运行在 asyncio 任务中。因此这里不用绑定单个事件循环的 ``asyncio.Event``，而是
 用线程安全的 ``threading.Event`` 保存状态，再为等待者按需创建 loop-local event。
 
-除了 XingClaw 自己的 :class:`CancellationToken`，辅助函数也接受具备常见
+除了 LoopWeaver 自己的 :class:`CancellationToken`，辅助函数也接受具备常见
 ``throw_if_cancelled`` / ``is_set`` / ``is_cancelled`` 接口的外部 signal，方便
 工具和 provider 渐进式接入。
 """

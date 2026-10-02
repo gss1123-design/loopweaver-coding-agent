@@ -68,7 +68,7 @@ def file_lock(path: Path, *, create: bool = True):
 
 @contextmanager
 def merge_lock(workspace: Path):
-    runtime = workspace / ".xingclaw"
+    runtime = workspace / ".loopweaver"
     if runtime.resolve() != runtime.absolute():
         raise ValueError("Unsafe runtime state directory")
     with file_lock(runtime / "merge.lock"):
@@ -89,7 +89,7 @@ class MergeTransaction:
     def __init__(self, workspace: Path, root: Path, *, expected_digest: str | None = None):
         self.workspace = workspace.resolve(strict=True)
         self.root = root.absolute()
-        if not self.root.resolve().is_relative_to(self.workspace / ".xingclaw" / "workspaces") or self.root.resolve() != self.root:
+        if not self.root.resolve().is_relative_to(self.workspace / ".loopweaver" / "workspaces") or self.root.resolve() != self.root:
             raise ValueError("Unsafe merge transaction directory")
         self.plan = json.loads((self.root / "plan.json").read_text(encoding="utf-8"))
         if expected_digest is not None and digest(self.plan) != expected_digest:
@@ -106,7 +106,7 @@ class MergeTransaction:
 
     @classmethod
     def prepare(cls, snapshot: WorkspaceSnapshot, root: Path) -> "MergeTransaction":
-        if root.resolve() != root.absolute() or not root.resolve().is_relative_to(snapshot.source / ".xingclaw" / "workspaces"):
+        if root.resolve() != root.absolute() or not root.resolve().is_relative_to(snapshot.source / ".loopweaver" / "workspaces"):
             raise ValueError("Unsafe merge transaction directory")
         preview = snapshot.preview()
         if preview["conflicts"]:
@@ -205,7 +205,7 @@ class MergeTransaction:
         if file_hash(backup) != expected:
             raise ValueError("Merge backup checksum mismatch")
         target.parent.mkdir(parents=True,exist_ok=True)
-        fd,temporary = tempfile.mkstemp(prefix=".xingclaw-merge-",dir=target.parent)
+        fd,temporary = tempfile.mkstemp(prefix=".loopweaver-merge-",dir=target.parent)
         try:
             with os.fdopen(fd,"wb") as fp:
                 fp.write(backup.read_bytes())

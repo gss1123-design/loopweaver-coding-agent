@@ -1,4 +1,4 @@
-"""Deterministic, offline evaluation scenarios for XingClaw."""
+"""Deterministic, offline evaluation scenarios for LoopWeaver."""
 
 from .runner import EvalResult, run_suite
 

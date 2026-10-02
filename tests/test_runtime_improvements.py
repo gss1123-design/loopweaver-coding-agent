@@ -97,7 +97,7 @@ def test_memory_scopes_sources_and_expiry(tmp_path):
 
 
 def test_memory_refreshes_without_prompt_accumulation(tmp_path):
-    memory = tmp_path / ".xingclaw" / "MEMORY.md"
+    memory = tmp_path / ".loopweaver" / "MEMORY.md"
     memory.parent.mkdir()
     memory.write_text("first", encoding="utf-8")
     session = create_agent_session(CreateAgentSessionOptions(workspace_dir=tmp_path, model=get_model("openai-standard", "gpt-4o-mini"), load_workspace_resources=False))
@@ -109,7 +109,7 @@ def test_memory_refreshes_without_prompt_accumulation(tmp_path):
 
 
 def test_sandbox_command_is_restricted(tmp_path):
-    command = docker_command(tmp_path, "xingclaw-sandbox:local", "test-name", read_only=True)
+    command = docker_command(tmp_path, "loopweaver-sandbox:local", "test-name", read_only=True)
     assert command[command.index("--network")+1] == "none"
     assert "--read-only" in command
     assert command[command.index("--mount")+1].endswith(",readonly")
@@ -119,9 +119,9 @@ def test_sandbox_command_is_restricted(tmp_path):
 def test_real_docker_read_write_and_boundary(tmp_path):
     # Opt in to integration testing; ordinary test runs need no Docker daemon.
     import os
-    if os.environ.get("XINGCLAW_TEST_DOCKER") != "1":
-        pytest.skip("Set XINGCLAW_TEST_DOCKER=1 for container integration")
-    tools = sandbox_tools(create_builtin_tools(tmp_path, ["read", "write"]), tmp_path, "xingclaw-sandbox:local", {})
+    if os.environ.get("LOOPWEAVER_TEST_DOCKER") != "1":
+        pytest.skip("Set LOOPWEAVER_TEST_DOCKER=1 for container integration")
+    tools = sandbox_tools(create_builtin_tools(tmp_path, ["read", "write"]), tmp_path, "loopweaver-sandbox:local", {})
     by_name = {t.name: t for t in tools}
     async def check():
         await by_name["write"].execute("w", {"path":"hello.txt", "content":"sandbox-ok"})

@@ -4,7 +4,7 @@ from __future__ import annotations
 会话持久化存储。
 
 默认目录结构：
-.xingclaw/sessions/<session_id>/
+.loopweaver/sessions/<session_id>/
   - meta.json
   - context.jsonl
   - events.jsonl
@@ -39,7 +39,7 @@ class SessionStore:
     def __init__(self, workspace_dir: str | Path, session_id: str) -> None:
         self.workspace_dir = Path(workspace_dir)
         self.session_id = session_id
-        self.root = self.workspace_dir / ".xingclaw" / "sessions" / session_id
+        self.root = self.workspace_dir / ".loopweaver" / "sessions" / session_id
         self.meta_file = self.root / "meta.json"
         self.session_file = self.root / "session.jsonl"
         self.context_file = self.root / "context.jsonl"

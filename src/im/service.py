@@ -43,7 +43,7 @@ from .types import (
     IMUserInfo,
 )
 
-logger = logging.getLogger("xingclaw.im.service")
+logger = logging.getLogger("loopweaver.im.service")
 
 _STREAM_UPDATE_INTERVAL = 0.8
 _THINKING_PLACEHOLDER = "思考中..."
@@ -131,7 +131,7 @@ class IMServiceConfig:
     tool_approval: bool = False
     approval_timeout_seconds: float = 300.0
     tool_backend: str = "local"
-    sandbox_image: str = "xingclaw-sandbox:local"
+    sandbox_image: str = "loopweaver-sandbox:local"
     enable_structured_memory: bool = False
     subagent_read_only: bool = False
 
@@ -478,7 +478,7 @@ class IMService:
             ApprovalGate(
                 timeout_seconds=self.config.approval_timeout_seconds,
                 state_path=Path(self.config.workspace_dir)
-                / ".xingclaw"
+                / ".loopweaver"
                 / "im"
                 / f"approval_{session_id}.json",
             )
@@ -617,7 +617,7 @@ class IMService:
                     self.adapter.send_card,
                     IMOutgoingCard(
                         channel_id=message.channel_id,
-                        title="XingClaw 工具审批",
+                        title="LoopWeaver 工具审批",
                         markdown_content=(
                             f"**工具：** `{tool_name}`\n\n"
                             f"**参数：** `{args_text}`\n\n"
@@ -630,7 +630,7 @@ class IMService:
                                 text="允许执行",
                                 style="primary",
                                 value={
-                                    "xingclaw_action": "tool_approval",
+                                    "loopweaver_action": "tool_approval",
                                     "decision": "approve",
                                     "tool_call_id": tool_call_id,
                                     "thread_id": message.thread_id or "",
@@ -640,7 +640,7 @@ class IMService:
                                 text="拒绝",
                                 style="danger",
                                 value={
-                                    "xingclaw_action": "tool_approval",
+                                    "loopweaver_action": "tool_approval",
                                     "decision": "reject",
                                     "tool_call_id": tool_call_id,
                                     "thread_id": message.thread_id or "",
@@ -708,7 +708,7 @@ class IMService:
             placeholder_id = self.adapter.send_card(
                 IMOutgoingCard(
                     channel_id=message.channel_id,
-                    title="XingClaw",
+                    title="LoopWeaver",
                     markdown_content=_THINKING_PLACEHOLDER,
                     thread_id=message.thread_id,
                     reply_to_message_id=message.message_id,
@@ -802,7 +802,7 @@ class IMService:
                     self.adapter.send_card,
                     IMOutgoingCard(
                         channel_id=message.channel_id,
-                        title="XingClaw",
+                        title="LoopWeaver",
                         markdown_content=_THINKING_PLACEHOLDER,
                         thread_id=message.thread_id,
                         reply_to_message_id=message.message_id,
@@ -917,7 +917,7 @@ class IMService:
                     self.adapter.send_card,
                     IMOutgoingCard(
                         channel_id=message.channel_id,
-                        title="XingClaw",
+                        title="LoopWeaver",
                         markdown_content=text,
                         thread_id=message.thread_id,
                         reply_to_message_id=message.message_id,
@@ -1069,7 +1069,7 @@ class IMService:
                 self.adapter.send_card(
                     IMOutgoingCard(
                         channel_id=message.channel_id,
-                        title="XingClaw",
+                        title="LoopWeaver",
                         markdown_content=text,
                         thread_id=message.thread_id,
                         reply_to_message_id=message.message_id,

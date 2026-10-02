@@ -85,7 +85,7 @@ class AgentSessionOptions:
     memory_loader: Optional[Callable[[], str]] = None
     memory_retrieval_policy: Literal["selective", "legacy"] = "selective"
     tool_backend: Literal["local", "docker"] = "local"
-    sandbox_image: str = "xingclaw-sandbox:local"
+    sandbox_image: str = "loopweaver-sandbox:local"
 
 
 @dataclass
@@ -152,7 +152,7 @@ class CreateAgentSessionOptions:
     subagent_timeout_seconds: float = 120.0
     subagent_max_output_chars: int = 8_000
     tool_backend: Literal["local", "docker"] = "local"
-    sandbox_image: str = "xingclaw-sandbox:local"
+    sandbox_image: str = "loopweaver-sandbox:local"
     enable_structured_memory: bool = False
     memory_retrieval_policy: Literal["selective", "legacy"] = "selective"
     memory_scope: str = "workspace"

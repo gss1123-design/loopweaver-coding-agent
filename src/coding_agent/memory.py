@@ -51,9 +51,9 @@ def _session_entry_source_check(workspace: Path, source: str, value: str) -> str
     if claim is None:
         return mismatch
     session_id, entry_id = claim.groups()
-    session_dir = workspace / ".xingclaw" / "sessions" / session_id
+    session_dir = workspace / ".loopweaver" / "sessions" / session_id
     session_file = session_dir / "session.jsonl"
-    if ((workspace / ".xingclaw").is_symlink() or (workspace / ".xingclaw" / "sessions").is_symlink()
+    if ((workspace / ".loopweaver").is_symlink() or (workspace / ".loopweaver" / "sessions").is_symlink()
             or session_dir.is_symlink() or session_file.is_symlink()):
         return mismatch
     try:
@@ -136,7 +136,7 @@ class MemorySearchGuard:
 class MemoryStore:
     def __init__(self, workspace: str | Path):
         self.workspace = Path(workspace)
-        self.path = self.workspace / ".xingclaw" / "memory.sqlite3"
+        self.path = self.workspace / ".loopweaver" / "memory.sqlite3"
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS memories(scope TEXT,key TEXT,kind TEXT,value TEXT,source TEXT,updated REAL,expires REAL,PRIMARY KEY(scope,key))")

@@ -35,7 +35,7 @@ async def main() -> None:
         print("[assistant.text]", text if text else "(empty)")
 
     print("[session.id]", session.session_id)
-    print("[session.dir]", Path.cwd() / ".xingclaw" / "sessions" / session.session_id)
+    print("[session.dir]", Path.cwd() / ".loopweaver" / "sessions" / session.session_id)
     print("[session.message_count]", len(session.messages))
 
     session.close()

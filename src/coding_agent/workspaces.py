@@ -14,7 +14,7 @@ import json
 import difflib
 import subprocess
 
-EXCLUDED = {".git", ".xingclaw", ".ssh", ".aws", ".codex", ".venv", "venv",
+EXCLUDED = {".git", ".loopweaver", ".ssh", ".aws", ".codex", ".venv", "venv",
             "node_modules", "__pycache__", ".pytest_cache", ".eval"}
 
 
@@ -126,7 +126,7 @@ class WorkspaceSnapshot:
                 dst.unlink()
             else:
                 dst.parent.mkdir(parents=True, exist_ok=True)
-                fd, temporary = tempfile.mkstemp(prefix=".xingclaw-merge-", dir=dst.parent)
+                fd, temporary = tempfile.mkstemp(prefix=".loopweaver-merge-", dir=dst.parent)
                 os.close(fd)
                 try:
                     shutil.copy2(self.target / relative, temporary)
@@ -172,7 +172,7 @@ def initialize_snapshot_git(target: Path) -> None:
     """Create a local baseline without parent history, hooks or Git credentials."""
     env = {**os.environ,"GIT_CONFIG_NOSYSTEM":"1","GIT_CONFIG_GLOBAL":os.devnull}
     prefix = ["git","-c","core.autocrlf=false","-c","core.hooksPath="+os.devnull,
-              "-c","commit.gpgsign=false","-c","user.name=XingClaw Worker",
+              "-c","commit.gpgsign=false","-c","user.name=LoopWeaver Worker",
               "-c","user.email=worker@localhost"]
     for args in (["init","--quiet","--template="],["add","--all"],["commit","--quiet","--allow-empty","-m","Worker baseline"]):
         result = subprocess.run(prefix + args,cwd=target,env=env,capture_output=True,text=True,timeout=30)

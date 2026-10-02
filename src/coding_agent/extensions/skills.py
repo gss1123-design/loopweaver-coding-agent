@@ -19,7 +19,7 @@ def discover_skill_paths(workspace_dir: str | Path, configured_paths: list[str] 
         seen.add(key)
         paths.append(resolved)
 
-    default_dir = workspace / ".xingclaw" / "skills"
+    default_dir = workspace / ".loopweaver" / "skills"
     if default_dir.exists() and default_dir.is_dir():
         for path in sorted(default_dir.glob("*.md")):
             _add(path)

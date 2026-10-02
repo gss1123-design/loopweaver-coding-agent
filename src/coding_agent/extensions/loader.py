@@ -20,7 +20,7 @@ def discover_extension_paths(workspace_dir: str | Path, configured_paths: list[s
         seen.add(key)
         paths.append(resolved)
 
-    default_dir = workspace / ".xingclaw" / "extensions"
+    default_dir = workspace / ".loopweaver" / "extensions"
     if default_dir.exists() and default_dir.is_dir():
         for path in sorted(default_dir.glob("*.py")):
             if path.name.startswith("_"):
@@ -69,7 +69,7 @@ def load_extensions(workspace_dir: str | Path, configured_paths: list[str] | Non
 
 
 def _load_module_from_file(path: Path):
-    module_name = f"xingclaw_extension_{path.stem}_{abs(hash(str(path)))}"
+    module_name = f"loopweaver_extension_{path.stem}_{abs(hash(str(path)))}"
     spec = importlib.util.spec_from_file_location(module_name, str(path))
     if spec is None or spec.loader is None:
         raise RuntimeError("cannot create import spec")

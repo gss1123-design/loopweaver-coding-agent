@@ -12,7 +12,7 @@ class SessionRouter:
 
     def __init__(self, workspace_dir: str | Path) -> None:
         self.workspace_dir = Path(workspace_dir)
-        self.state_file = self.workspace_dir / ".xingclaw" / "im" / "session_map.json"
+        self.state_file = self.workspace_dir / ".loopweaver" / "im" / "session_map.json"
         self.state_file.parent.mkdir(parents=True, exist_ok=True)
 
     def get_or_create_session_id(self, *, platform: str, channel_id: str, thread_id: str | None = None) -> str:

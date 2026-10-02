@@ -761,5 +761,5 @@ def create_builtin_tools(
         )
 
     for tool in tools:
-        setattr(tool, "_xingclaw_builtin_tool", True)
+        setattr(tool, "_loopweaver_builtin_tool", True)
     return tools

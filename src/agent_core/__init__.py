@@ -1,5 +1,5 @@
 """
-XingClaw agent_core
+LoopWeaver agent_core
 ===================
 
 最小可运行的 Agent 编排内核，包含：

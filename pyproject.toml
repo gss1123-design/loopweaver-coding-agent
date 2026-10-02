@@ -1,5 +1,5 @@
 [project]
-name = "xingclaw"
+name = "loopweaver"
 version = "0.2.0"
 description = "LoopWeaver coding agent: unified LLM API, agent runtime, and Feishu integration"
 readme = "README.md"
@@ -13,8 +13,8 @@ feishu = ["lark-oapi>=1.7.1"]
 dev = ["pytest>=7.0", "pytest-asyncio>=0.21"]
 
 [project.scripts]
-xingclaw = "coding_agent.cli:main"
-xingclaw-im = "im.cli:main"
+loopweaver = "coding_agent.cli:main"
+loopweaver-im = "im.cli:main"
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]

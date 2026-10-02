@@ -77,7 +77,7 @@ class _StdioConnection:
 class StdioMCPClient:
     """Small dependency-free MCP client for local stdio servers.
 
-    The client implements the part XingClaw needs today:
+    The client implements the part LoopWeaver needs today:
 
     ``initialize`` -> ``notifications/initialized`` -> ``tools/list`` /
     ``tools/call``.
@@ -154,7 +154,7 @@ class StdioMCPClient:
                 {
                     "protocolVersion": config.protocol_version,
                     "capabilities": {},
-                    "clientInfo": {"name": "xingclaw", "version": "0.2.0"},
+                    "clientInfo": {"name": "loopweaver", "version": "0.2.0"},
                 },
             )
             await self._notify(connection, "notifications/initialized", {})

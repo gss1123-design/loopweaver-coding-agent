@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-XingClaw Windows 本地调试启动脚本
+LoopWeaver Windows 本地调试启动脚本
 .DESCRIPTION
 使用方式:
   .\dev.ps1                       # 默认 IM webhook 模式
@@ -31,14 +31,14 @@ if (Test-Path $envFile) {
 Set-Location $PSScriptRoot
 
 # 确保已安装（开发模式）
-$installed = pip show xingclaw 2>$null
+$installed = pip show loopweaver 2>$null
 if (-not $installed) {
-    Write-Host "[dev] Installing xingclaw in editable mode ..." -ForegroundColor Yellow
+    Write-Host "[dev] Installing loopweaver in editable mode ..." -ForegroundColor Yellow
     pip install -e ".[dev]"
 }
 
-$provider = if ($env:XINGCLAW_PROVIDER) { $env:XINGCLAW_PROVIDER } else { "anthropic" }
-$modelId  = if ($env:XINGCLAW_MODEL_ID) { $env:XINGCLAW_MODEL_ID } else { "claude-sonnet-4-5" }
+$provider = if ($env:LOOPWEAVER_PROVIDER) { $env:LOOPWEAVER_PROVIDER } else { "anthropic" }
+$modelId  = if ($env:LOOPWEAVER_MODEL_ID) { $env:LOOPWEAVER_MODEL_ID } else { "claude-sonnet-4-5" }
 
 if ($Mode -eq "im") {
     $appId     = $env:FEISHU_APP_ID

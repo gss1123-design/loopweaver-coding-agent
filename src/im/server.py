@@ -8,7 +8,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from .service import IMService
 
-logger = logging.getLogger("xingclaw.im.server")
+logger = logging.getLogger("loopweaver.im.server")
 
 
 @dataclass

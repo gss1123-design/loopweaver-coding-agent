@@ -196,8 +196,8 @@ def _create_fresh_session(old: AgentSession) -> AgentSession:
             tools=[
                 tool
                 for tool in old.agent.state.tools
-                if not getattr(tool, "_xingclaw_subagent_tool", False)
-                and not getattr(tool, "_xingclaw_skill_tool", False)
+                if not getattr(tool, "_loopweaver_subagent_tool", False)
+                and not getattr(tool, "_loopweaver_skill_tool", False)
             ],
             session_id=new_session_id(),
             messages=[],

@@ -30,7 +30,7 @@ from .system_prompt import SystemPromptBuildOptions, build_system_prompt
 from .types import AgentSessionOptions, CreateAgentSessionOptions
 
 
-logger = logging.getLogger("xingclaw.coding_agent.factory")
+logger = logging.getLogger("loopweaver.coding_agent.factory")
 
 BeforeToolHook = Callable[
     [BeforeToolCallContext, Any | None],

@@ -13,7 +13,7 @@ from uuid import uuid4
 
 from .types import IMIncomingMessage
 
-logger = logging.getLogger("xingclaw.im.events")
+logger = logging.getLogger("loopweaver.im.events")
 
 
 @dataclass

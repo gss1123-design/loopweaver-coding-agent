@@ -1,5 +1,5 @@
 """
-XingClaw im
+LoopWeaver im
 ===========
 
 IM 接入层（当前实现飞书）：

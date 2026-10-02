@@ -1,4 +1,4 @@
-"""XingClaw 的本地 stdio MCP 示例服务器。
+"""LoopWeaver 的本地 stdio MCP 示例服务器。
 
 这个服务器只使用 Python 标准库，通过换行分隔的 JSON-RPC 与
 ``coding_agent.mcp.StdioMCPClient`` 通信。它提供三个只读工具：
@@ -207,7 +207,7 @@ def _handle(request: dict[str, Any]) -> dict[str, Any] | None:
             "result": {
                 "protocolVersion": params.get("protocolVersion", "2025-06-18"),
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "xingclaw-project", "version": "1.0.0"},
+                "serverInfo": {"name": "loopweaver-project", "version": "1.0.0"},
             },
         }
     if method == "tools/list":

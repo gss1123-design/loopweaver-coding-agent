@@ -26,7 +26,7 @@ def setup_merge(tmp_path):
     snapshot=WorkspaceSnapshot(source,tmp_path/"candidate")
     (snapshot.target/"a").write_text("new-a")
     (snapshot.target/"b").write_text("new-b")
-    root=source/".xingclaw"/"workspaces"/"test"/"merges"/"test"
+    root=source/".loopweaver"/"workspaces"/"test"/"merges"/"test"
     return snapshot,MergeTransaction.prepare(snapshot,root)
 
 
@@ -132,7 +132,7 @@ def test_create_delete_and_rollback_committed_merge(tmp_path):
     snapshot=WorkspaceSnapshot(source,tmp_path/"candidate")
     (snapshot.target/"deleted").unlink()
     (snapshot.target/"added").write_text("new")
-    transaction=MergeTransaction.prepare(snapshot,source/".xingclaw"/"workspaces"/"t"/"merge")
+    transaction=MergeTransaction.prepare(snapshot,source/".loopweaver"/"workspaces"/"t"/"merge")
     transaction.recover()
     assert not (source/"deleted").exists() and (source/"added").exists()
     transaction.recover("rollback")

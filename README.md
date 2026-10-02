@@ -46,7 +46,7 @@ python -m coding_agent --mode interactive --provider anthropic --model-id claude
 python -m coding_agent --mode print --provider deepseek --model-id deepseek-chat --prompt "概括当前项目的目录结构"
 ```
 
-可用参数见 `python -m coding_agent --help`。已有的 Python 包名和命令 `xingclaw`、`xingclaw-im` 保留兼容。
+安装后也可以使用 `loopweaver` 和 `loopweaver-im` 命令。可用参数见 `loopweaver --help` 与 `loopweaver-im --help`。
 
 ## 飞书集成
 
@@ -69,10 +69,10 @@ python -m pytest -q
 python -m evals --help
 ```
 
-Docker 集成测试通过 `XINGCLAW_TEST_DOCKER=1` 显式开启。Docker 工具后端使用的镜像可以这样构建：
+Docker 集成测试通过 `LOOPWEAVER_TEST_DOCKER=1` 显式开启。Docker 工具后端使用的镜像可以这样构建：
 
 ```bash
-docker build -t xingclaw-sandbox:local tools/sandbox
+docker build -t loopweaver-sandbox:local tools/sandbox
 ```
 
 ## 项目结构
@@ -89,4 +89,4 @@ evals/            Agent 与记忆评测代码
 tools/sandbox/    可选 Docker 运行环境
 ```
 
-本地运行配置可放在 `.xingclaw/`。MCP 示例见 [examples/mcp](examples/mcp/README.md)。
+本地运行配置可放在 `.loopweaver/`。MCP 示例见 [examples/mcp](examples/mcp/README.md)。

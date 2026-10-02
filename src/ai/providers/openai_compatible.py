@@ -22,7 +22,7 @@ from ..cancellation import throw_if_cancelled
 from ..types import Context, Model, SimpleStreamOptions, StreamOptions, TextContent, ThinkingContent, ToolCall
 from ._common import empty_assistant_message, parse_partial_json, to_openai_messages, to_openai_tools
 
-logger = logging.getLogger("xingclaw.ai.openai_compatible")
+logger = logging.getLogger("loopweaver.ai.openai_compatible")
 
 
 def _map_stop_reason(finish_reason: str | None) -> str:

@@ -90,7 +90,7 @@ def validate(store,image):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--image",default="xingclaw-sandbox:local")
+    parser.add_argument("--image",default="loopweaver-sandbox:local")
     parser.add_argument("--artifacts",default="output/evals-fixtures")
     args=parser.parse_args()
     store=ArtifactStore(args.artifacts,{"mode":"offline-fixture-validation","benchmark_version":BENCHMARK_VERSION,"api_calls":0,"image":args.image})

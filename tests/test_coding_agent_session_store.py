@@ -288,7 +288,7 @@ class CodingAgentStoreTests(unittest.TestCase):
             loaded_from_session = store.load_session_messages()
             self.assertEqual(len(loaded_from_session), 1)
 
-            meta = json.loads((Path(tmp_dir) / ".xingclaw" / "sessions" / "s1" / "meta.json").read_text(encoding="utf-8"))
+            meta = json.loads((Path(tmp_dir) / ".loopweaver" / "sessions" / "s1" / "meta.json").read_text(encoding="utf-8"))
             self.assertEqual(meta["session_id"], "s1")
 
     def test_factory_resolve_from_provider_model_id(self) -> None:

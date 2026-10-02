@@ -52,7 +52,7 @@ class WorkspaceResources:
 class WorkspaceResourceLoader:
     def __init__(self, workspace_dir: str | Path) -> None:
         self.workspace_dir = Path(workspace_dir)
-        self.resource_root = self.workspace_dir / ".xingclaw"
+        self.resource_root = self.workspace_dir / ".loopweaver"
         self.settings_file = self.resource_root / "settings.json"
         self.prompt_file = self.resource_root / "prompt.md"
         self.tools_file = self.resource_root / "tools.json"

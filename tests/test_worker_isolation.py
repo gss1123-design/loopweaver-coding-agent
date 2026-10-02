@@ -24,8 +24,8 @@ def test_snapshot_filters_secrets_state_and_dependencies(tmp_path):
     (source/"app.py").write_text("original")
     (source/".env").write_text("secret")
     (source/"private.key").write_text("secret")
-    (source/".xingclaw").mkdir()
-    (source/".xingclaw"/"journal.jsonl").write_text("state")
+    (source/".loopweaver").mkdir()
+    (source/".loopweaver"/"journal.jsonl").write_text("state")
     snapshot = WorkspaceSnapshot(source,tmp_path/"candidate")
     assert list(snapshot.base) == ["app.py"]
     assert not (snapshot.target/".env").exists()
@@ -87,16 +87,16 @@ def test_parent_read_only_cannot_delegate_writes(tmp_path):
 
 def test_docker_cannot_read_host_secrets_or_publish_state(tmp_path):
     import os
-    if os.environ.get("XINGCLAW_TEST_DOCKER") != "1":
+    if os.environ.get("LOOPWEAVER_TEST_DOCKER") != "1":
         pytest.skip("Docker integration opt-in")
     (tmp_path/".env").write_text("top-secret")
-    tools=sandbox_tools(create_builtin_tools(tmp_path,["bash"]),tmp_path,"xingclaw-sandbox:local",{})
+    tools=sandbox_tools(create_builtin_tools(tmp_path,["bash"]),tmp_path,"loopweaver-sandbox:local",{})
     async def check():
-        result=await tools[0].execute("b",{"command":"test ! -e .env && id -u && printf ok > app.txt && mkdir -p .xingclaw && printf bad > .xingclaw/state"})
+        result=await tools[0].execute("b",{"command":"test ! -e .env && id -u && printf ok > app.txt && mkdir -p .loopweaver && printf bad > .loopweaver/state"})
         assert "65534" in result.content[0].text
     asyncio.run(check())
     assert (tmp_path/"app.txt").read_text() == "ok"
-    assert not (tmp_path/".xingclaw"/"state").exists()
+    assert not (tmp_path/".loopweaver"/"state").exists()
     assert (tmp_path/".env").read_text() == "top-secret"
 
 
@@ -145,12 +145,12 @@ def test_worker_survives_parent_restart_and_digest_detects_tampering(tmp_path):
 
 def test_docker_git_inspection_and_cancel_cleanup(tmp_path):
     import os
-    if os.environ.get("XINGCLAW_TEST_DOCKER") != "1":
+    if os.environ.get("LOOPWEAVER_TEST_DOCKER") != "1":
         pytest.skip("Docker integration opt-in")
     from agent_core.cancellation import CancellationToken
     subprocess.run(["git","init","-q",str(tmp_path)],check=True)
     (tmp_path/"app.txt").write_text("untracked")
-    tools=sandbox_tools(create_builtin_tools(tmp_path,["git_status","bash"]),tmp_path,"xingclaw-sandbox:local",{})
+    tools=sandbox_tools(create_builtin_tools(tmp_path,["git_status","bash"]),tmp_path,"loopweaver-sandbox:local",{})
     async def check():
         git=next(t for t in tools if t.name == "git_status")
         result=await git.execute("git",{})
@@ -242,7 +242,7 @@ def test_parallel_worker_approvals_are_namespaced_and_forwarded(tmp_path):
 
 def test_worker_inherits_docker_backend(tmp_path):
     import os
-    if os.environ.get("XINGCLAW_TEST_DOCKER") != "1":
+    if os.environ.get("LOOPWEAVER_TEST_DOCKER") != "1":
         pytest.skip("Docker integration opt-in")
     session=create_agent_session(CreateAgentSessionOptions(workspace_dir=tmp_path,model=get_model("openai-standard","gpt-4o-mini"),load_workspace_resources=False,tool_backend="docker"))
     async def prompt(child,text,**kwargs):

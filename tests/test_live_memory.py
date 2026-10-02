@@ -47,7 +47,7 @@ def test_missing_live_cost_is_not_zero():
 
 
 def test_fixture_guard_blocks_runtime_logs_and_notes_writes():
-    for name,path in [("read",".xingclaw/sessions/log"),("write","PROJECT_NOTES.md"),("read","../app.py")]:
+    for name,path in [("read",".loopweaver/sessions/log"),("write","PROJECT_NOTES.md"),("read","../app.py")]:
         ctx=SimpleNamespace(tool_call=SimpleNamespace(name=name),args={"path":path})
         assert fixture_guard(ctx).block
     for name,path in [("read","app.py"),("read","PROJECT_NOTES.md"),("edit","app.py")]:

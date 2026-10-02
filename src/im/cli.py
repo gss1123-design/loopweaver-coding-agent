@@ -13,7 +13,7 @@ from .service import IMService, IMServiceConfig
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="XingClaw IM bridge service")
+    parser = argparse.ArgumentParser(description="LoopWeaver IM bridge service")
     parser.add_argument("--platform", choices=["feishu"], default="feishu", help="IM platform (current: feishu)")
     parser.add_argument(
         "--transport",
@@ -23,7 +23,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--workspace", default=".", help="Workspace path")
     parser.add_argument("--tool-backend", choices=["local", "docker"], default="local")
-    parser.add_argument("--sandbox-image", default="xingclaw-sandbox:local")
+    parser.add_argument("--sandbox-image", default="loopweaver-sandbox:local")
     parser.add_argument("--structured-memory", action="store_true")
     parser.add_argument("--subagent-read-only", action="store_true")
     parser.add_argument("--host", default="127.0.0.1", help="Webhook server host")
@@ -129,7 +129,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             stale_event_seconds=max(0.0, float(args.stale_event_seconds)),
         ),
     )
-    events_dir = Path(args.events_dir) if args.events_dir else Path(args.workspace) / ".xingclaw" / "im" / "events"
+    events_dir = Path(args.events_dir) if args.events_dir else Path(args.workspace) / ".loopweaver" / "im" / "events"
     watcher = IMEventWatcher(service, IMEventWatcherOptions(events_dir=events_dir))
     watcher.start()
     try:

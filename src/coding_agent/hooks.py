@@ -28,7 +28,7 @@ from agent_core import (
 )
 
 
-logger = logging.getLogger("xingclaw.coding_agent.hooks")
+logger = logging.getLogger("loopweaver.coding_agent.hooks")
 
 _PATH_ARGUMENTS = ("path", "cwd")
 _REDACTED = "[REDACTED]"

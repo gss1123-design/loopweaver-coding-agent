@@ -243,7 +243,7 @@ async def run_suite(case_name: str | None = None, *, artifacts: ArtifactStore | 
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Run XingClaw deterministic offline evaluations")
+    parser = argparse.ArgumentParser(description="Run LoopWeaver deterministic offline evaluations")
     parser.add_argument("--case", default=None, help="Run one case by name")
     parser.add_argument("--artifacts", default=".eval", help="Directory for isolated run artifacts")
     parser.add_argument("--repetitions", type=int, default=1)

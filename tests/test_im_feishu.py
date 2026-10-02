@@ -24,7 +24,7 @@ class FeishuAdapterTests(unittest.TestCase):
                     text="允许",
                     style="primary",
                     value={
-                        "xingclaw_action": "tool_approval",
+                        "loopweaver_action": "tool_approval",
                         "decision": "approve",
                         "tool_call_id": "tc-1",
                         "thread_id": "omt_1",
@@ -46,7 +46,7 @@ class FeishuAdapterTests(unittest.TestCase):
             "open_message_id": "om_card",
             "action": {
                 "value": {
-                    "xingclaw_action": "tool_approval",
+                    "loopweaver_action": "tool_approval",
                     "decision": "approve",
                     "tool_call_id": "tc-1",
                     "thread_id": "omt_1",
@@ -79,7 +79,7 @@ class FeishuAdapterTests(unittest.TestCase):
                     "chat_id": "oc_x1",
                     "message_id": "om_1",
                     "message_type": "text",
-                    "content": json.dumps({"text": "你好，XingClaw"}),
+                    "content": json.dumps({"text": "你好，LoopWeaver"}),
                 },
                 "sender": {"sender_id": {"open_id": "ou_1"}, "sender_type": "user"},
             },
@@ -88,7 +88,7 @@ class FeishuAdapterTests(unittest.TestCase):
         self.assertEqual(result.ack.get("code"), 0)
         self.assertEqual(len(result.messages), 1)
         self.assertEqual(result.messages[0].channel_id, "oc_x1")
-        self.assertEqual(result.messages[0].text, "你好，XingClaw")
+        self.assertEqual(result.messages[0].text, "你好，LoopWeaver")
         self.assertIsNone(result.messages[0].thread_id)
 
     def test_parse_post_message_with_inline_code(self) -> None:

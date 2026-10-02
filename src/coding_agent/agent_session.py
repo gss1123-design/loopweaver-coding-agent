@@ -46,7 +46,7 @@ from .merge_transaction import MergeTransaction, digest as merge_plan_digest, fi
 from .tracing import RunTrace, RunTraceRecorder
 from .types import AgentSessionOptions
 
-logger = logging.getLogger("xingclaw.coding_agent.session")
+logger = logging.getLogger("loopweaver.coding_agent.session")
 
 _COMPACTION_SYSTEM_PROMPT = """你是一个上下文压缩助手。请根据以下对话历史生成一份简明摘要。
 要求：
@@ -710,8 +710,8 @@ class AgentSession:
                 tools=[
                     tool
                     for tool in self.agent.state.tools
-                    if not getattr(tool, "_xingclaw_subagent_tool", False)
-                    and not getattr(tool, "_xingclaw_skill_tool", False)
+                    if not getattr(tool, "_loopweaver_subagent_tool", False)
+                    and not getattr(tool, "_loopweaver_skill_tool", False)
                 ],
                 session_id=new_id,
                 thinking_level=self.agent.state.thinking_level,
@@ -768,8 +768,8 @@ class AgentSession:
         lane_tools = [
             tool
             for tool in self.agent.state.tools
-            if not getattr(tool, "_xingclaw_subagent_tool", False)
-            and not getattr(tool, "_xingclaw_skill_tool", False)
+            if not getattr(tool, "_loopweaver_subagent_tool", False)
+            and not getattr(tool, "_loopweaver_skill_tool", False)
         ]
         if read_only:
             lane_tools = [tool for tool in lane_tools if tool.read_only]
@@ -846,15 +846,15 @@ class AgentSession:
                     tool
                     for tool in self.agent.state.tools
                     if tool.read_only
-                    and not getattr(tool, "_xingclaw_subagent_tool", False)
-                    and not getattr(tool, "_xingclaw_skill_tool", False)
+                    and not getattr(tool, "_loopweaver_subagent_tool", False)
+                    and not getattr(tool, "_loopweaver_skill_tool", False)
                 ]
                 if bool(record.get("read_only"))
                 else [
                     tool
                     for tool in self.agent.state.tools
-                    if not getattr(tool, "_xingclaw_subagent_tool", False)
-                    and not getattr(tool, "_xingclaw_skill_tool", False)
+                    if not getattr(tool, "_loopweaver_subagent_tool", False)
+                    and not getattr(tool, "_loopweaver_skill_tool", False)
                 ]
             ),
             skills=self.skills,
@@ -944,7 +944,7 @@ class AgentSession:
         )
         # Forked sessions must rebuild this closure so it points at their own
         # skill catalog instead of retaining the parent AgentSession.
-        setattr(tool, "_xingclaw_skill_tool", True)
+        setattr(tool, "_loopweaver_skill_tool", True)
         return tool
 
     def _build_subagent_tool(self) -> AgentTool:
@@ -1123,7 +1123,7 @@ class AgentSession:
         )
         # Mark the closure so fork_session can build a new tool bound to the
         # forked parent instead of accidentally retaining this session.
-        setattr(tool, "_xingclaw_subagent_tool", True)
+        setattr(tool, "_loopweaver_subagent_tool", True)
         return tool
 
     def _create_worker_lane(self, name: str, *, read_only: bool = False, previous_lane_id: str | None = None) -> "AgentSession":
@@ -1131,11 +1131,11 @@ class AgentSession:
         from .factory import create_agent_session
         from .types import CreateAgentSessionOptions
         from .approval import ScopedApprovalGate
-        allowed = [t.name for t in self.agent.state.tools if getattr(t, "_xingclaw_builtin_tool", False) and (not read_only or t.read_only)]
+        allowed = [t.name for t in self.agent.state.tools if getattr(t, "_loopweaver_builtin_tool", False) and (not read_only or t.read_only)]
         if not allowed:
             raise ValueError("Isolated worker requires builtin tools; custom/MCP closures cannot be safely rebound")
         lane_id = f"lane_{uuid.uuid4().hex[:12]}"
-        directory = self.workspace_dir / ".xingclaw" / "workspaces" / lane_id
+        directory = self.workspace_dir / ".loopweaver" / "workspaces" / lane_id
         previous = self._worker_snapshot(previous_lane_id) if previous_lane_id else None
         snapshot = WorkspaceSnapshot(previous.target if previous else self.workspace_dir, directory / "workspace")
         if previous:
@@ -1193,7 +1193,7 @@ class AgentSession:
             raise ValueError("Unknown isolated worker lane")
         snapshot = self._worker_snapshots.get(lane_id)
         if snapshot is None:
-            directory = self.workspace_dir / ".xingclaw" / "workspaces" / lane_id
+            directory = self.workspace_dir / ".loopweaver" / "workspaces" / lane_id
             snapshot = WorkspaceSnapshot.__new__(WorkspaceSnapshot)
             snapshot.source = self.workspace_dir.resolve()
             snapshot.target = (directory / "workspace").resolve(strict=True)
@@ -1241,7 +1241,7 @@ class AgentSession:
             description="Merge completed isolated worker changes. Refuses conflicting parent edits; normal write approval policy applies.",
             parameters={"type":"object","properties":{"lane_id":{"type":"string"},"change_digest":{"type":"string"},"allow_incomplete":{"type":"boolean","default":False}},"required":["lane_id","change_digest"],"additionalProperties":False},
             execute=execute,requires_approval=True)
-        setattr(tool,"_xingclaw_subagent_tool",True)
+        setattr(tool,"_loopweaver_subagent_tool",True)
         return tool
 
     def _build_inspect_subagent_tool(self) -> AgentTool:
@@ -1256,7 +1256,7 @@ class AgentSession:
             description="Preview bounded diff against current parent, conflict paths and digest before applying isolated worker changes.",
             parameters={"type":"object","properties":{"lane_id":{"type":"string"}},"required":["lane_id"],"additionalProperties":False},
             execute=execute,read_only=True,requires_approval=False)
-        setattr(tool,"_xingclaw_subagent_tool",True)
+        setattr(tool,"_loopweaver_subagent_tool",True)
         return tool
 
     def _latest_worker_merge(self, lane_id: str) -> MergeTransaction | None:
@@ -1305,7 +1305,7 @@ class AgentSession:
         tool = AgentTool(name="list_subagents",label="List persistent workers",
             description="Query worker outcomes, saved final output and merge recovery state, including after restart.",
             parameters={"type":"object","properties":{},"additionalProperties":False},execute=execute,read_only=True,requires_approval=False)
-        setattr(tool,"_xingclaw_subagent_tool",True)
+        setattr(tool,"_loopweaver_subagent_tool",True)
         return tool
 
     def worker_summaries(self, limit: int = 50) -> list[dict]:
@@ -1341,7 +1341,7 @@ class AgentSession:
             description="Explicitly resume or roll back a frozen merge using its durable plan. Refuses external changes; write approval applies.",
             parameters={"type":"object","properties":{"lane_id":{"type":"string"},"action":{"enum":["resume","rollback"]},"plan_digest":{"type":"string"}},"required":["lane_id","action","plan_digest"],"additionalProperties":False},
             execute=execute,requires_approval=True)
-        setattr(tool,"_xingclaw_subagent_tool",True)
+        setattr(tool,"_loopweaver_subagent_tool",True)
         return tool
 
     def switch_to_entry(self, entry_id: str) -> None:

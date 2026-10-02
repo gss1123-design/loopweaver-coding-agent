@@ -20,11 +20,11 @@ from .types import CreateAgentSessionOptions
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="XingClaw coding-agent CLI")
+    parser = argparse.ArgumentParser(description="LoopWeaver coding-agent CLI")
     parser.add_argument("--mode", choices=["print", "interactive", "rpc"], default="interactive")
     parser.add_argument("--workspace", default=".", help="Workspace directory")
     parser.add_argument("--tool-backend", choices=["local", "docker"], default="local")
-    parser.add_argument("--sandbox-image", default="xingclaw-sandbox:local")
+    parser.add_argument("--sandbox-image", default="loopweaver-sandbox:local")
     parser.add_argument("--structured-memory", action="store_true")
     parser.add_argument("--subagent-read-only", action="store_true", help="Disable worker writes even when parent tools can write")
     parser.add_argument("--session-id", default=None, help="Existing session id to resume")
@@ -69,7 +69,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--disable-workspace-resources",
         action="store_true",
-        help="Disable reading .xingclaw/{settings,prompt,tools}",
+        help="Disable reading .loopweaver/{settings,prompt,tools}",
     )
     return parser
 

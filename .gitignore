@@ -37,10 +37,10 @@ htmlcov/
 Thumbs.db
 
 # Runtime state
-.xingclaw/sessions/
-.xingclaw/im/
-.xingclaw/workspaces/
-.xingclaw/memory.sqlite3*
+.loopweaver/sessions/
+.loopweaver/im/
+.loopweaver/workspaces/
+.loopweaver/memory.sqlite3*
 
 # Secrets / local env
 .env
@@ -51,7 +51,7 @@ env.ps1
 
 TODOLIST/
 
-# 本地调研/抓取脚本与产物，与 XingClaw 主体无关
+# 本地调研/抓取脚本与产物，与 LoopWeaver 主体无关
 .jobscan/
 .research/
 jobscan/
@@ -92,7 +92,7 @@ learn-java/**/out/
 /.claude/
 /.codex/
 /.codex_resume_qa/
-/.xingclaw/
+/.loopweaver/
 /output/
 node_modules/
 .env.*

@@ -20,7 +20,7 @@ class FeishuLongConnTests(unittest.TestCase):
             event=SimpleNamespace(
                 action=SimpleNamespace(
                     value={
-                        "xingclaw_action": "tool_approval",
+                        "loopweaver_action": "tool_approval",
                         "decision": "reject",
                         "tool_call_id": "tc-2",
                         "thread_id": "omt_1",
