@@ -1,0 +1,100 @@
+# Python bytecode/cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test / coverage artifacts
+.pytest_cache/
+.eval/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Runtime state
+.xingclaw/sessions/
+.xingclaw/im/
+.xingclaw/workspaces/
+.xingclaw/memory.sqlite3*
+
+# Secrets / local env
+.env
+.env.ps1
+env.ps1
+*.pem
+*.key
+
+TODOLIST/
+
+# 本地调研/抓取脚本与产物，与 XingClaw 主体无关
+.jobscan/
+.research/
+jobscan/
+jd/
+raw/
+research/
+ashby.py
+exx.py
+gh.py
+hn.py
+jd_ext.py
+lever.py
+scratch_txjd.py
+fetch.sh
+tx_out.txt
+
+# 演示用的临时工作区（含 session 运行态）
+learn/_demo_ws/
+
+# Java 练习区的编译产物
+learn-java/**/out/
+*.class
+
+# Personal learning materials and unrelated local projects
+/learn/
+/leanr/
+/learn-java/
+/docs/
+/面试准备资料/
+/lab-management-system/
+/tests/leetcode/
+/tools/snake.py
+/tools/snake.html
+/*.md
+!/README.md
+
+# Local assistant settings, generated reports, and runtime state
+/.claude/
+/.codex/
+/.codex_resume_qa/
+/.xingclaw/
+/output/
+node_modules/
+.env.*
+!.env.example
+!.env.ps1.example
